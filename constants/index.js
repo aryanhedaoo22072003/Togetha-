@@ -1,0 +1,3 @@
+export const supabaseUrl='https://nqjrshwfxgsvyzehyphf.supabase.co';
+export const supabaseAnonKey='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xanJzaHdmeGdzdnl6ZWh5cGhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzIyNjg5MzUsImV4cCI6MjA0Nzg0NDkzNX0.9fYbA5KjdMWVxLti3kLtmVudYoI-0Hq3IR39EjbrSz0';
+
