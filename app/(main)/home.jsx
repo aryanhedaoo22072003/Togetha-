@@ -5,8 +5,10 @@ import { useAuth } from '../../contexts/AuthContext'
 import { supabase } from '../../lib/supabase'
 
 const Home = () => {
-    const {seAuth}=useAuth();
+    const {user,seAuth}=useAuth();
 
+    console.log('users',user);
+    
     const onLogout=async ()=>{
         //setAuth(null);
         const {error}=await supabase.auth.signOut();
