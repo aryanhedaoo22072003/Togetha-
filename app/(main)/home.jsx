@@ -1,13 +1,14 @@
-import { Button, StyleSheet, Text, View } from 'react-native'
+import { Button, Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import ScreenWrapper from '../../components/ScreenWrapper'
 import { useAuth } from '../../contexts/AuthContext'
 import { supabase } from '../../lib/supabase'
 import { hp, wp } from '../../helpers/common'
 import { theme } from '../../constants/theme'
+import Icon from '../../assets/icons'
 
 const Home = () => {
-    const {user,seAuth}=useAuth();
+    const {user,setAuth}=useAuth();
 
     console.log('users',user);
     
@@ -20,7 +21,23 @@ const Home = () => {
     }
   return (
     <ScreenWrapper>
-      <Text>Home</Text>
+      <View style={styles.container}>
+        {/*header*/ }
+        <View style={styles.header}>
+          <Text style={styles.title}>Togetha!</Text>
+          <View style={styles.icons}>
+            <Pressable>
+              <Icon name="heart" size={hp(3.2)} strokeWidth={2} color={theme.colors.text} />
+            </Pressable>
+            <Pressable>
+              <Icon name="plus" size={hp(3.2)} strokeWidth={2} color={theme.colors.text} />
+            </Pressable>
+            <Pressable>
+              <Icon name="user" size={hp(3.2)} strokeWidth={2} color={theme.colors.text} />
+            </Pressable>
+          </View>
+        </View>
+      </View>
       <Button title='logout' onPress={onLogout}/>
     </ScreenWrapper>
   )
