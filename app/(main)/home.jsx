@@ -22,7 +22,7 @@ const Home = () => {
         }
     }
   return (
-    <ScreenWrapper>
+    <ScreenWrapper bg="white">
       <View style={styles.container}>
         {/*header*/ }
         <View style={styles.header}>
