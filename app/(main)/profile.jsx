@@ -93,16 +93,12 @@ const UserHeader = ({ user, router, handleLogout }) => {
             {user && user.phone && (
               <View style={styles.info}>
                 <Icon name="call" size={20} color={theme.colors.textLight} />
-                <Text style={styles.infoText}>{user && user.phoneNumber}
-
-                </Text>
+                <Text style={styles.infoText}>{user && user.phoneNumber}</Text>
               </View>
             )}
-            {
-                user && user.bio && (
-                    <Text style={styles.infoText}>{user.bio}</Text>
-                )
-            }
+            {user && user.bio && (
+              <Text style={styles.infoText}>{user.bio} </Text>
+            )}
           </View>
         </View>
       </View>
@@ -145,15 +141,15 @@ const styles = StyleSheet.create({
   userName: {
     fontSize: hp(3),
     fontWeight: "500",
-    top: 50,
+    top: 40,
     padding: 2,
     color: theme.colors.textDark,
   },
   info: {
     flexDirection: "row",
     fontWeight: "500",
-    top: 50,
-    padding: 2,
+    gap: 10,
+    marginBottom: 10,
     color: theme.colors.textDark,
   },
   infoText: {
@@ -179,3 +175,71 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     paddingVertical: hp(2),
+//   },
+//   headerContainer: {
+//         marginHorizontal: wp(4),
+//         marginBottom: 20,
+//       },
+//       headerShape: {
+//         width: wp(100),
+//         height: hp(20),
+//       },
+//   avatarContainer: {
+//     alignSelf: "center",
+//     justifyContent: "center",
+//     position: "relative",
+//     marginBottom: hp(2),
+//   },
+//   editIcon: {
+//     position: "absolute",
+//     bottom: -10,
+//     right: -10,
+//     padding: 7,
+//     borderRadius: 50,
+//     backgroundColor: "white",
+//     shadowColor: theme.colors.textLight,
+//     shadowOffset: { width: 0, height: 4 },
+//     shadowOpacity: 0.4,
+//     shadowRadius: 5,
+//     elevation: 7,
+//   },
+//   userName: {
+//     fontSize: hp(2.5),
+//     fontWeight: "600",
+//     textAlign: "center",
+//     color: theme.colors.textDark,
+//   },
+//   info: {
+//     flexDirection: "row",
+//     alignItems: "center",
+//     gap: wp(2),
+//     marginTop: hp(1),
+//   },
+//   infoText: {
+//     fontSize: hp(1.8),
+//     fontWeight: "500",
+//     color: theme.colors.textLight,
+//     flex: 1,
+//     marginLeft: wp(2),
+//   },
+//   logoutButton: {
+//     position: "absolute",
+//     right: 0,
+//     padding: 5,
+//     borderRadius: theme.radius.sm,
+//     backgroundColor: "#fee2e2",
+//   },
+//   listStyle: {
+//     paddingHorizontal: wp(4),
+//     paddingBottom: 30,
+//   },
+//   noPosts: {
+//     fontSize: hp(2),
+//     color: theme.colors.text,
+//     textAlign: "center",
+//   },
+// });
