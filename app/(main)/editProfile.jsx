@@ -1,5 +1,5 @@
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ScreenWrapper from '../../components/ScreenWrapper'
 import { hp, wp } from '../../helpers/common'
 import { theme } from '../../constants/theme'
@@ -12,7 +12,25 @@ import Input from '../../components/Inputs'
 
 
 const EditProfile = () => {
-  const {user}=useAuth();
+  const {user:currentUser}=useAuth();
+  const [user,setUser]=useState({
+    name:'',
+    phoneNumber:'',
+    image:null,
+    bio:'',
+    address:''
+  });
+  useEffect(()=>{
+   if(currentUser){
+    setUser({
+      name:currentUser.name || '',
+      phoneNumber:currentUser.phoneNumber || '',
+      image:currentUser.image || null,
+      address:currentUser.address || '',
+      bio:currentUser.bio || '',
+   });
+  }
+  },[currentUser]);
   const onPickImage=async()=>{
 
   }
@@ -37,8 +55,8 @@ const EditProfile = () => {
           <Input
               icon={<Icon name="user"/>}
               placeholder="Enter your Name"
-              value={null}
-              onChangeText={value=>{}}
+              value={user.name}
+              onChangeText={value=>setUser({...user,name:value})}
           />
         </View>
       </ScrollView>
