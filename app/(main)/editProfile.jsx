@@ -8,7 +8,8 @@ import { Image } from 'expo-image'
 import { useAuth } from '../../contexts/AuthContext'
 import { getUserImageSrc } from '../../services/imageService'
 import Icon from '../../assets/icons'
-import Input from '../../components/Inputs'
+import Input from '../../components/Input'
+
 
 
 const EditProfile = () => {
@@ -69,6 +70,14 @@ const EditProfile = () => {
               placeholder="Enter your Address"
               value={user.address}
               onChangeText={value=>setUser({...user,address:value})}
+          />
+          <Input
+              
+              placeholder="Enter your Bio"
+              value={user.bio}
+              multiline={true}
+              containerStyle={styles.bio}
+              onChangeText={value=>setUser({...user,bio:value})}
           />
         </View>
       </ScrollView>
