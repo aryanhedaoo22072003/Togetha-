@@ -64,6 +64,12 @@ const EditProfile = () => {
               value={user.phoneNumber}
               onChangeText={value=>setUser({...user,phoneNumber:value})}
           />
+          <Input
+              icon={<Icon name="location"/>}
+              placeholder="Enter your Address"
+              value={user.address}
+              onChangeText={value=>setUser({...user,address:value})}
+          />
         </View>
       </ScrollView>
       </View> 
