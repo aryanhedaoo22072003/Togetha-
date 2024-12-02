@@ -6,12 +6,12 @@ import { theme } from '../../constants/theme'
 import Header from '../../components/Header'
 import { Image } from 'expo-image'
 import { useAuth } from '../../contexts/AuthContext'
-import { getUserImageSrc } from '../../services/imageService'
+import { getUserImageSrc, uploadFile } from '../../services/imageService'
 import Icon from '../../assets/icons'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 import { updateUser } from '../../services/userService'
-import { router, useRouter } from 'expo-router'
+import { useRouter } from 'expo-router'
 
 import * as ImagePicker from 'expo-image-picker';
 
@@ -48,7 +48,7 @@ const EditProfile = () => {
       aspect:[4,3],
       quality:0.7,
     });
-    if(!result.cancelled){
+    if(!result.canceled){
       setUser({...user,image:result.assets[0]})
     }
 
@@ -62,13 +62,14 @@ const EditProfile = () => {
   }
   setLoading(true);
 
-  // if(typeof image == 'object'){
-  //   //upload images
-  //   let imageRes=await uploadFile('profiles',image?.uri,true);
-  //   if(imageRes.success) userData.image=imageRes.data;
-  //   else userData.image=null;
 
-  // }
+  
+  if(typeof image == 'object'){
+  //   //upload images
+      let imageRes=await uploadFile('profiles',image?.uri,true);
+      if(imageRes.success) userData.image=imageRes.data;
+      else userData.image=null;
+  }
   //update user
  const res=await updateUser(currentUser?.id,userData);
  setLoading(false);
