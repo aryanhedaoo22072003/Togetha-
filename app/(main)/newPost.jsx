@@ -15,6 +15,7 @@ import Button from '../../components/Button'
 import * as ImagePicker from 'expo-image-picker';
 import { getSupabaseFileUrl } from '../../services/imageService'
 import { Video } from 'expo-av';
+import { createOrUpdatePost } from '../../services/postService'
 const NewPost = () => {
   const {user}=useAuth();
 
@@ -56,7 +57,7 @@ const NewPost = () => {
     }
 
     //check image or video for remote file
-    if(file.includes('postImage')){
+    if(file.includes('postImages')){
       return 'image';
     }
     return 'video';
@@ -82,9 +83,12 @@ const NewPost = () => {
 
     }
     //create post
-    
+    setloading(true);
+    let res=await createOrUpdatePost(data);
+    setloading(false);
+    console.log('post res:',res);
   }
-
+  console.log('file uri:',getFileUri(file));
   return (
     <ScreenWrapper bg="white">
       <View style={styles.container}>
