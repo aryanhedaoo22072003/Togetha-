@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useRef, useState } from 'react'
 import ScreenWrapper from '../../components/ScreenWrapper'
 import Header from '../../components/Header'
@@ -13,6 +13,7 @@ import { useRouter } from 'expo-router'
 import Icon from '../../assets/icons'
 import Button from '../../components/Button'
 import * as ImagePicker from 'expo-image-picker';
+import { getSupabaseFileUrl } from '../../services/imageService'
  
 const NewPost = () => {
   const {user}=useAuth();
@@ -61,6 +62,13 @@ const NewPost = () => {
     return 'video';
   }
 
+  const getFileUri=file=>{
+    if(!file) return null;
+    if(isLocalFile(file)){
+      return file.uri;
+    }
+    return getSupabaseFileUrl(file)?.uri;
+  }
   const onSubmit=async()=>{
 
   }
@@ -100,10 +108,13 @@ const NewPost = () => {
                   getFileType(file)== 'video'?(
                     <></>
                   ):(
-                    <></>
+                    <Image source={{uri:getFileUri(file)}} resizeMode='cover' style={{flex:1}} />
                   )
 
                 }
+                <Pressable style={styles.closeIcon}>
+                  <Icon name='delete' size={25} color='white' />
+                </Pressable>
               </View>
             )
           }
