@@ -70,7 +70,8 @@ const NewPost = () => {
     return getSupabaseFileUrl(file)?.uri;
   }
   const onSubmit=async()=>{
-
+     console.log('body :',bodyRef.current);
+     console.log('file:',file);
   }
 
   return (
@@ -98,7 +99,7 @@ const NewPost = () => {
         </View>
         
         <View style={styles.textEditor}>
-          <RichTextEditor  editorRef={editorRef} onChange={body=>bodyRef.current=body}/>
+          <RichTextEditor editorRef={editorRef} onChange={body=>bodyRef.current=body}/>
         </View>
 
           {
