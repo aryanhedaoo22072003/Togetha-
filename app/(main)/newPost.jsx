@@ -14,7 +14,7 @@ import Icon from '../../assets/icons'
 import Button from '../../components/Button'
 import * as ImagePicker from 'expo-image-picker';
 import { getSupabaseFileUrl } from '../../services/imageService'
- 
+import { Video } from 'expo-av';
 const NewPost = () => {
   const {user}=useAuth();
 
@@ -106,14 +106,22 @@ const NewPost = () => {
               <View style={styles.file}>
                 {
                   getFileType(file)== 'video'?(
-                    <></>
+                    <Video 
+                        style={{flex:1}}
+                        source={{
+                          uri: getFileUri(file)
+                        }}
+                        useNativeControls
+                        resizeMode='cover'
+                        isLooping
+                      />
                   ):(
                     <Image source={{uri:getFileUri(file)}} resizeMode='cover' style={{flex:1}} />
                   )
 
                 }
-                <Pressable style={styles.closeIcon}>
-                  <Icon name='delete' size={25} color='white' />
+                <Pressable style={styles.closeIcon} onPress={()=>setFile(null)}>
+                  <Icon name='delete' size={20} color='white' />
                 </Pressable>
               </View>
             )
@@ -231,6 +239,9 @@ const styles = StyleSheet.create({
     position:'absolute',
     top:10,
     right:10,
+    padding:7,
+    borderRadius:50,
+    backgroundColor:'rgba(255,0,0,0.6)'
   //   shadowColor:theme.colors.textLight,
   //   shadowOffset:{width:0, height:3},
   //   shadowOpacity:0.6,
