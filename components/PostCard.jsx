@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { theme } from '../constants/theme';
 import { hp } from '../helpers/common';
+import Avatar from './Avatar';
 
 const PostCard =({
     item,
@@ -20,8 +21,19 @@ const PostCard =({
     }
     console.log('post item:',item);
     return (
-    <View>
-      <Text>PostCard</Text>
+    <View style={[styles.container,hasShadow && shadowStyles]}>
+      <View style={styles.header}>
+        <View style={styles.userInfo}>
+            <Avatar 
+                size={hp(4.5)}
+                uri={item?.user?.image}
+                rounded={theme.radius.md}
+            />
+            <View style={{gap:2}}>
+                <Text style={styles.username}>{item?.user?.name}</Text>
+            </View>
+        </View>
+      </View>
     </View>
   )
 }
