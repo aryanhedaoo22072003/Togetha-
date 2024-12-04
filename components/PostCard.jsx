@@ -1,8 +1,10 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { theme } from '../constants/theme';
 import { hp } from '../helpers/common';
 import Avatar from './Avatar';
+import moment from 'moment';
+import Icon from '../assets/icons';
 
 const PostCard =({
     item,
@@ -20,6 +22,8 @@ const PostCard =({
        elevation:1
     }
     console.log('post item:',item);
+
+    const createdAt=moment(item?.created_at).format('MMM D');
     return (
     <View style={[styles.container,hasShadow && shadowStyles]}>
       <View style={styles.header}>
@@ -31,8 +35,12 @@ const PostCard =({
             />
             <View style={{gap:2}}>
                 <Text style={styles.username}>{item?.user?.name}</Text>
+                <Text style={styles.postTime}>{createdAt}</Text>
             </View>
         </View>
+        <TouchableOpacity>
+            <Icon name='threeDotsHorizontal' size={hp(3.4)} strokeWidth={3} color={theme.colors.text} />
+        </TouchableOpacity>
       </View>
     </View>
   )
