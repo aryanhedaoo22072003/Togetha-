@@ -86,9 +86,16 @@ const NewPost = () => {
     setloading(true);
     let res=await createOrUpdatePost(data);
     setloading(false);
-    console.log('post res:',res);
+    if(res.success){
+      setFile(null);
+      bodyRef.current='';
+      editorRef.current?.setContentHTML('');
+      router.back();
+    }else{
+      Alert.alert('Post',res.msg);
+    }
   }
-  console.log('file uri:',getFileUri(file));
+  console.log('file uri :',getFileUri(file));
   return (
     <ScreenWrapper bg="white">
       <View style={styles.container}>
