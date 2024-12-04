@@ -37,7 +37,10 @@ export const fetchPosts=async(limit=10)=>{
     try{
        const {data,error}=await supabase
        .from('posts')
-       .select('*')
+       .select(`
+            *,
+            user: users(id,name,image)
+        `)
        .order('created_at',{ascending:false})
        .limit(limit);
 
