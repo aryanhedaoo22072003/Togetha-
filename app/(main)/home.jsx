@@ -1,5 +1,5 @@
 import { Button, Pressable, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ScreenWrapper from '../../components/ScreenWrapper'
 import { useAuth } from '../../contexts/AuthContext'
 import { supabase } from '../../lib/supabase'
@@ -8,10 +8,23 @@ import { theme } from '../../constants/theme'
 import Icon from '../../assets/icons'
 import { useRouter } from 'expo-router'
 import Avatar from '../../components/Avatar'
+import { fetchPosts } from '../../services/postService'
 
 const Home = () => {
     const {user,setAuth}=useAuth();
     const router=useRouter();
+
+    const [posts,setPosts]=useState();
+    
+    useEffect(()=>{
+      getPosts();
+    },[])
+    const getPosts=async()=>{
+        //call the api here
+      let res=await fetchPosts();
+      console.log('got posts result:',res);
+
+    }
    // console.log('user: ',user);
     
     // const onLogout=async ()=>{
