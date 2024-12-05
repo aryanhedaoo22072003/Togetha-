@@ -8,6 +8,7 @@ import Icon from "../assets/icons";
 import RenderHtml from "react-native-render-html";
 import { Image } from "expo-image";
 import { getSupabaseFileUrl } from "../services/imageService";
+import { Video } from "expo-av";
 
 
 const textStyle = {
@@ -84,6 +85,18 @@ const PostCard = ({ item, currentUser, router, hasShadow = true }) => {
                 transition={100}
                 style={styles.postMedia}
                 contentFit='cover'
+                />
+            )
+        }
+        {/* post videos */}
+        {
+            item?.file &&  item?.file?.includes('postVideos') && (
+                <Video
+                style={[styles.postMedia,{height:hp(30)}]}
+                source={getSupabaseFileUrl(item?.file)}
+                useNativeControls
+                resizeMode="cover"
+                isLooping
                 />
             )
         }
