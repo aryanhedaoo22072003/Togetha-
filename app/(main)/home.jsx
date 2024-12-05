@@ -10,6 +10,7 @@ import { useRouter } from 'expo-router'
 import Avatar from '../../components/Avatar'
 import { fetchPosts } from '../../services/postService'
 import PostCard from '../../components/PostCard'
+import Loading from '../../components/Loading'
 
 
 var limit=0;
@@ -77,6 +78,11 @@ const Home = () => {
           router={router}
         />
         }
+        ListFooterComponent={(
+          <View style={{marginVertical:30}}>
+            <Loading />
+          </View>
+        )}
   />
       </View>
       {/* <Button title='logout' onPress={onLogout}/> */}
