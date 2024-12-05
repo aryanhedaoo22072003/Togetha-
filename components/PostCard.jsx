@@ -1,11 +1,29 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { theme } from '../constants/theme';
-import { hp } from '../helpers/common';
+import { hp, wp } from '../helpers/common';
 import Avatar from './Avatar';
 import moment from 'moment';
 import Icon from '../assets/icons';
+import RenderHtml from 'react-native-render-html';
+import { color } from '@rneui/themed/dist/config';
 
+
+const textStyle={
+    color:theme.colors.dark,
+    fontSize:hp(1.75)
+};
+const tagsStyles={
+    div:textStyle,
+    p:textStyle,
+    ol:textStyle,
+    h1:{
+        color:theme.colors.dark
+    },
+    h4:{
+        color:theme.colors.dark
+    }
+}
 const PostCard =({
     item,
     currentUser,
@@ -23,6 +41,9 @@ const PostCard =({
     }
     console.log('post item:',item);
 
+    const openPostDetails=()=>{
+        //later
+    }
     const createdAt=moment(item?.created_at).format('MMM D');
     return (
     <View style={[styles.container,hasShadow && shadowStyles]}>
@@ -38,10 +59,28 @@ const PostCard =({
                 <Text style={styles.postTime}>{createdAt}</Text>
             </View>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={openPostDetails}>
             <Icon name='threeDotsHorizontal' size={hp(3.4)} strokeWidth={3} color={theme.colors.text} />
         </TouchableOpacity>
       </View>
+
+    {/* post body   and media*/}
+    <View style={styles.content}>
+        <View style={styles.postBody}>
+           {
+            item?.body  && (
+                <RenderHtml
+                    contentWidth={wp(100)}
+                    source={{html:item?.body}}
+                    tagsStyles={tagsStyles}
+                />    
+
+            )
+           }
+
+        </View>
+
+    </View>
     </View>
   )
 }
