@@ -92,7 +92,7 @@ export const removePostLike=async(postId,userId)=>{
         console.log('PostLike error :',error);
         return {success:false,msg:'Could not remove the posts like'};
        }
-       return {success:true,data:data};
+       return {success:true};
     }catch(error){
         console.log('fetchPosts error :',error);
         return {success:false,msg:'Could not remove the posts like'};

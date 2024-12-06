@@ -9,7 +9,7 @@ import RenderHtml from "react-native-render-html";
 import { Image } from "expo-image";
 import { getSupabaseFileUrl } from "../services/imageService";
 import { Video } from "expo-av";
-import { createPostLike } from "../services/postService";
+import { createPostLike, removePostLike } from "../services/postService";
 
 
 const textStyle = {
@@ -48,16 +48,32 @@ const PostCard = ({ item, currentUser, router, hasShadow = true }) => {
   };
 
   const onLike=async()=>{
-    let data={
-      userId:currentUser?.id,
-      postId:item?.id
+
+    if(liked){
+      //remove the like
+      let updatedLikes=likes.filter(like=>like.userId!=currentUser?.id);
+
+      setLikes([...updatedLikes])
+      let res=await removePostLike(item?.id , currentUser?.id);
+      console.log('removed like:',res);
+      if(!res.success){
+        Alert.alert('Post','Something went wrong!');
+      }
+
+    }else{
+      //create the like
+      let data={
+        userId:currentUser?.id,
+        postId:item?.id
+      }
+      setLikes([...likes,data])
+      let res=await createPostLike(data);
+      console.log('added like:',res);
+      if(!res.success){
+        Alert.alert('Post','Something went wrong!');
+      }
     }
-    setLikes([...likes,data])
-    let res=await createPostLike(data);
-    console.log('res:',res);
-    if(!res.success){
-      Alert.alert('Post','Something went wrong!');
-    }
+    
   }
   const createdAt = moment(item?.created_at).format("MMM D");
   
