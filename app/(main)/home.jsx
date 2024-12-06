@@ -11,6 +11,7 @@ import Avatar from '../../components/Avatar'
 import { fetchPosts } from '../../services/postService'
 import PostCard from '../../components/PostCard'
 import Loading from '../../components/Loading'
+import { getUserData } from '../../services/userService'
 
 
 var limit=0;
@@ -21,7 +22,12 @@ const Home = () => {
     const [posts,setPosts]=useState([]);
 
     const handlePostEvent=async(payload)=>{
-      console.log('got post event:',payload);
+      if(payload.eventType=='INSERT' && payload?.new?.id){
+        let newPost={...payload.new};
+        let res=await getUserData(newPost.userId);
+        newPost.username=res.success? res.data:{};
+        setPosts(prevPosts=>[newPost, ...prevPosts]);
+      }
     }
     
     useEffect(()=>{
