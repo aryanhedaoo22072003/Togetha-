@@ -36,7 +36,7 @@ const PostCard = ({ item, currentUser, router, hasShadow = true }) => {
     shadowRadius: 6,
     elevation: 1,
   };
-  console.log("post item:", item);
+  //console.log("post item:", item);
 
   const openPostDetails = () => {
     //later

@@ -20,6 +20,7 @@ const Home = () => {
     const router=useRouter();
 
     const [posts,setPosts]=useState([]);
+    const [hasMore,setHasMore]=useState(true);
 
     const handlePostEvent=async(payload)=>{
       if(payload.eventType=='INSERT' && payload?.new?.id){
@@ -37,7 +38,7 @@ const Home = () => {
       .on('postgres_changes', { event: '*', schema: 'public', table:'posts'},handlePostEvent)
       .subscribe();
 
-      getPosts();
+      //getPosts();
 
       return ()=>{
         supabase.removeChannel(postChannel);
@@ -45,11 +46,14 @@ const Home = () => {
     },[])
     const getPosts=async()=>{
         //call the api here
-        limit=limit+10;
+
+        if(!hasMore) return null;
+        limit=limit + 4;
 
         console.log('fetching post:',limit);
       let res=await fetchPosts();
       if(res.success){
+        if(posts.length== res.data.length) setHasMore(false);
         setPosts(res.data);
       }
 
@@ -98,9 +102,18 @@ const Home = () => {
           router={router}
         />
         }
-        ListFooterComponent={(
+        onEndReached={()=>{
+          getPosts();
+          console.log('got to the end');
+        }}
+        onEndReachedThreshold={0}
+        ListFooterComponent={hasMore? (
           <View style={{marginVertical: posts.length==0? 200: 30}}>
             <Loading />
+          </View>
+        ):(
+          <View style={{marginVertical:30}}>
+            <Text style={styles.noPosts}>No more Posts</Text>
           </View>
         )}
   />
