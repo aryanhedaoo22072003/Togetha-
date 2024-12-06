@@ -76,3 +76,25 @@ export const createPostLike=async(postLike)=>{
 
     }
 }
+
+export const removePostLike=async(postId,userId)=>{
+    try{
+       
+        const {data,error}=await supabase
+        .from('postLikes')
+        .delete()
+        .eq('userId',userId)
+        .eq('postId',postId)
+
+
+       if(error){
+        console.log('PostLike error :',error);
+        return {success:false,msg:'Could not remove the posts like'};
+       }
+       return {success:true,data:data};
+    }catch(error){
+        console.log('fetchPosts error :',error);
+        return {success:false,msg:'Could not remove the posts like'};
+
+    }
+}

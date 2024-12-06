@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { theme } from "../constants/theme";
 import { hp, wp } from "../helpers/common";
@@ -9,6 +9,7 @@ import RenderHtml from "react-native-render-html";
 import { Image } from "expo-image";
 import { getSupabaseFileUrl } from "../services/imageService";
 import { Video } from "expo-av";
+import { createPostLike } from "../services/postService";
 
 
 const textStyle = {
@@ -43,7 +44,15 @@ const PostCard = ({ item, currentUser, router, hasShadow = true }) => {
   };
 
   const onLike=async()=>{
-    
+    let data={
+      userId:currentUser?.id,
+      postId:item?.id
+    }
+    let res=await createPostLike(data);
+    console.log('res:',res);
+    if(!res.success){
+      Alert.alert('Post','Something went wrong!');
+    }
   }
   const createdAt = moment(item?.created_at).format("MMM D");
   
