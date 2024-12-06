@@ -1,5 +1,5 @@
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { theme } from "../constants/theme";
 import { hp, wp } from "../helpers/common";
 import Avatar from "./Avatar";
@@ -37,7 +37,11 @@ const PostCard = ({ item, currentUser, router, hasShadow = true }) => {
     shadowRadius: 6,
     elevation: 1,
   };
-  //console.log("post item:", item);
+  
+  const [likes, setLikes] =useState([]);
+  useEffect(()=>{
+    setLikes(item?.postLikes);
+  },[])
 
   const openPostDetails = () => {
     //later
@@ -48,6 +52,7 @@ const PostCard = ({ item, currentUser, router, hasShadow = true }) => {
       userId:currentUser?.id,
       postId:item?.id
     }
+    setLikes([...likes,data])
     let res=await createPostLike(data);
     console.log('res:',res);
     if(!res.success){
@@ -56,9 +61,11 @@ const PostCard = ({ item, currentUser, router, hasShadow = true }) => {
   }
   const createdAt = moment(item?.created_at).format("MMM D");
   
-  const liked=false;
+  const liked=likes.filter(like=> like.userId==currentUser?.id)[0]? true:false;
 
-  const likes=[];
+  
+
+  // console.log("post item:", item);
   return (
     <View style={[styles.container, hasShadow && shadowStyles]}>
       <View style={styles.header}>
