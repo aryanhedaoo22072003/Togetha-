@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import { fetchPostDetails } from '../../services/postService';
 import { hp, wp } from '../../helpers/common';
@@ -8,6 +8,7 @@ import PostCard from '../../components/PostCard';
 import { useAuth } from '../../contexts/AuthContext';
 import Loading from '../../components/Loading';
 import { ScrollView } from 'react-native';
+import Input from '../../components/Input';
 
 
 const PostDetails = () => {
@@ -15,7 +16,8 @@ const PostDetails = () => {
     const {user}=useAuth();
     const router=useRouter();
     const [startLoading,setStartLoading]=useState(true);
-    console.log('got post Id :',postId);
+    const inputRef=useRef(null);
+    const commentRef=useRef('');
 
     const [post, setPost] = useState(null);
 
@@ -46,7 +48,18 @@ const PostDetails = () => {
             currentUser={user}
             router={router}
             hasShadow={false}
+            showMoreIcon={false}
         />
+        {/* comment input */}
+        <View style={styles.inputContainer}>
+            <Input 
+                inputRef={inputRef}
+                placeholder="Type comment..."
+                onChangeText={value=> commentRef.current=value}
+                placeholderTextColor={theme.colors.textLight}
+                containerStyle={{flex:1,height:hp(6.2),borderRadius:theme.radius.xl}}
+            />
+        </View>
       </ScrollView>
     </View>
   )
