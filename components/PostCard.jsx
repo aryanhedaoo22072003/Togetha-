@@ -49,6 +49,7 @@ const PostCard = ({ item, currentUser, router, hasShadow = true }) => {
 
   const openPostDetails = () => {
     //later
+    router.push({pathname:'postDetails',params:{postId:item?.id}})
   };
 
   const onLike=async()=>{
@@ -172,7 +173,7 @@ const onShare=async()=>{
             </Text>
         </View>
         <View style={styles.footerButton}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={openPostDetails}>
                 <Icon name='comment' size={24} color={theme.colors.textLight}/>
             </TouchableOpacity>
             <Text style={styles.count}>
