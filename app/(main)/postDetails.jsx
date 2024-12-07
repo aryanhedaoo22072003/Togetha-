@@ -1,7 +1,7 @@
-import {StyleSheet, Text, View } from 'react-native'
+import {Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import { useLocalSearchParams, useRouter } from 'expo-router'
-import { fetchPostDetails } from '../../services/postService';
+import { createComment, fetchPostDetails } from '../../services/postService';
 import { hp, wp } from '../../helpers/common';
 import { theme } from '../../constants/theme';
 import PostCard from '../../components/PostCard';
@@ -9,6 +9,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import Loading from '../../components/Loading';
 import { ScrollView } from 'react-native';
 import Input from '../../components/Input';
+import Icon from '../../assets/icons';
 
 
 const PostDetails = () => {
@@ -18,6 +19,7 @@ const PostDetails = () => {
     const [startLoading,setStartLoading]=useState(true);
     const inputRef=useRef(null);
     const commentRef=useRef('');
+    const [loading,setLoading]=useState(false);
 
     const [post, setPost] = useState(null);
 
@@ -30,6 +32,26 @@ const PostDetails = () => {
         let res=await fetchPostDetails(postId);
         if(res.success) setPost(res.data);
         setStartLoading(false);
+    }
+
+    const onNewComment=async()=>{
+        if(!commentRef.current) return null;
+        let data={
+            userId:user?.id,
+            postId:post?.id,
+            text:commentRef.current
+        }
+        //create comment
+        setLoading(true);
+        let res=await createComment(data);
+        setLoading(false);
+        if(res.success){
+            //send notification later
+            inputRef?.current?.clear();
+            commentRef.current="";
+        }else{
+            Alert.alert('Comment',res.msg)
+        }
     }
 
     if(startLoading){
@@ -59,6 +81,20 @@ const PostDetails = () => {
                 placeholderTextColor={theme.colors.textLight}
                 containerStyle={{flex:1,height:hp(6.2),borderRadius:theme.radius.xl}}
             />
+
+            {
+                loading? (
+                    <View style={styles.loading}>
+                        <Loading size='small'/>
+                    </View>
+                ):(
+                <TouchableOpacity style={styles.sendIcon} onPress={onNewComment}>
+                    <Icon name='send' color={theme.colors.primaryDark} />
+                </TouchableOpacity> 
+                )
+            }
+
+
         </View>
       </ScrollView>
     </View>

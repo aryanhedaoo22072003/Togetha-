@@ -123,3 +123,24 @@ export const fetchPostDetails=async(postId)=>{
 
     }
 }
+
+export const createComment=async(comment)=>{
+    try{
+       
+        const {data,error}=await supabase
+        .from('comments')
+        .insert(comment)
+        .select()
+        .single();
+
+       if(error){
+        console.log('comment error :',error);
+        return {success:false,msg:'Could not create your comment'};
+       }
+       return {success:true,data:data};
+    }catch(error){
+        console.log('comment error :',error);
+        return {success:false,msg:'Could not create your comment'};
+
+    }
+}
