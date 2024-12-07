@@ -10,6 +10,7 @@ import Loading from '../../components/Loading';
 import { ScrollView } from 'react-native';
 import Input from '../../components/Input';
 import Icon from '../../assets/icons';
+import CommentItem from '../../components/CommentItem';
 
 
 const PostDetails = () => {
@@ -107,9 +108,19 @@ const PostDetails = () => {
             {
                 post?.comments?.map(comment=>
                     <CommentItem
+                        key={comment?.id?.toString()}
                         item={comment}
+                        canDelete={user.id == comment.userId || user.id == post.userId}
                     />
                 )
+            }
+
+            {
+               post?.comments?.length==0 && (
+                <Text style={{color:theme.colors.text,marginLeft:5}}>
+                    Be first to comment!
+                </Text>
+               )
             }
         </View>
       </ScrollView>
