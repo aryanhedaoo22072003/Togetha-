@@ -40,7 +40,8 @@ export const fetchPosts=async(limit=10)=>{
        .select(`
             *,
             user: users(id,name,image),
-            postLikes(*)
+            postLikes(*),
+            comments(count)
         `)
        .order('created_at',{ascending:false})
        .limit(limit);
@@ -107,9 +108,11 @@ export const fetchPostDetails=async(postId)=>{
        .select(`
             *,
             user: users(id,name,image),
-            postLikes(*)
+            postLikes(*),
+            comments(*,user:users(id,name,image))
         `)
        .eq('id',postId)
+       .order("created_at",{ascending:false,foreignTable:'comments'})
        .single();
 
        if(error){

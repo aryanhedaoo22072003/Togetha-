@@ -22,7 +22,7 @@ const PostDetails = () => {
     const [loading,setLoading]=useState(false);
 
     const [post, setPost] = useState(null);
-
+    // console.log('post ddetails:',post);
     useEffect(()=>{
         getPostDetails();
     },[]);
@@ -61,12 +61,18 @@ const PostDetails = () => {
             </View>
         )
     }
-
+    if(!post){
+        return(
+           <View style={[styles.center,{justifyContent:'flex-start',marginTop:100}]}>
+            <Text style={styles.notFound}>Post not found !</Text>
+           </View> 
+        )
+    }
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.list}>
         <PostCard
-            item={post}
+            item={{...post,comments:[{count:post?.comments?.length}]}}
             currentUser={user}
             router={router}
             hasShadow={false}
@@ -95,6 +101,16 @@ const PostDetails = () => {
             }
 
 
+        </View>
+        {/* comments list */}
+        <View style={{marginVertical:15,gap:17}}>
+            {
+                post?.comments?.map(comment=>
+                    <CommentItem
+                        item={comment}
+                    />
+                )
+            }
         </View>
       </ScrollView>
     </View>

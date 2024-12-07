@@ -93,6 +93,7 @@ const onShare=async()=>{
   }
   Share.share(content);
 }
+  // console.log('post item comments:',item?.comments);
 
   const createdAt = moment(item?.created_at).format("MMM D");
   
@@ -187,7 +188,7 @@ const onShare=async()=>{
             </TouchableOpacity>
             <Text style={styles.count}>
                 {
-                    0
+                  item?.comments[0]?.count
                 }
             </Text>
         </View>
