@@ -23,12 +23,22 @@ const Home = () => {
     const [hasMore,setHasMore]=useState(true);
 
     const handlePostEvent=async(payload)=>{
+      //console.log('payload:',payload);
       if(payload.eventType=='INSERT' && payload?.new?.id){
         let newPost={...payload.new};
         let res=await getUserData(newPost.userId);
+        newPost.postLikes=[];
+        newPost.comments=[{count:0}]
         newPost.user=res.success? res.data:{};
         setPosts(prevPosts=>[newPost, ...prevPosts]);
       }
+      if(payload.eventType=='DELETE' && payload.old.id){
+        setPosts(prevPosts=>{
+          let updatedPosts=prevPosts.filter(post=>post.id!=payload.old.id);
+          return updatedPosts;
+      })
+      }
+
     }
     
     useEffect(()=>{

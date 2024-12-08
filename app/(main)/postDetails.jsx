@@ -1,7 +1,7 @@
 import {Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import { useLocalSearchParams, useRouter } from 'expo-router'
-import { createComment, fetchPostDetails, removeComment } from '../../services/postService';
+import { createComment, fetchPostDetails, removeComment, removePost } from '../../services/postService';
 import { hp, wp } from '../../helpers/common';
 import { theme } from '../../constants/theme';
 import PostCard from '../../components/PostCard';
@@ -109,7 +109,12 @@ const PostDetails = () => {
 
     const onDeletePost=async(item)=>{
         //delete post here
-        
+        let res=await removePost(post.id);
+        if(res.success){
+            router.back();
+        }else{
+            Alert.alert('Post',res.msg);
+        }
     }
 
     const onEditPost=async(item)=>{
