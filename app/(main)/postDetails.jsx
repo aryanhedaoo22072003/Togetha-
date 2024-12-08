@@ -104,7 +104,17 @@ const PostDetails = () => {
     }else{
         Alert.alert('Comment',res.msg);
     }
+}
 
+
+    const onDeletePost=async(item)=>{
+        console.log('delete Post:',item);
+    }
+
+    const onEditPost=async(item)=>{
+        console.log('Edit Post:',item);
+    }
+    
     if(startLoading){
         return(
             <View style={styles.center}>
@@ -119,7 +129,7 @@ const PostDetails = () => {
            </View> 
         )
     }
-    }
+    
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.list}>
@@ -129,6 +139,9 @@ const PostDetails = () => {
             router={router}
             hasShadow={false}
             showMoreIcon={false}
+            showDelete={true}
+            onDelete={onDeletePost}
+            onEdit={onEditPost}
         />
         {/* comment input */}
         <View style={styles.inputContainer}>

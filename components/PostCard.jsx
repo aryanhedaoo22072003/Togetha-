@@ -28,7 +28,7 @@ const tagsStyles = {
     color: theme.colors.dark
   },
 };
-const PostCard = ({ item, currentUser, router, hasShadow = true ,showMoreIcon=true }) => {
+const PostCard = ({ item, currentUser, router, hasShadow = true ,showMoreIcon=true,showDelete=false,onDelete=()=>{},onEdit=()=>{} }) => {
   const shadowStyles = {
     shadowOffset: {
       width: 0,
@@ -140,6 +140,20 @@ const onShare=async()=>{
           )
         }
 
+        {
+          showDelete && currentUser.id== item?.userId && (
+            <View style={styles.actions}>
+              <TouchableOpacity onPress={onEdit}>
+            <Icon
+              name="edit"
+              size={hp(2.5)}
+              strokeWidth={3}
+              color={theme.colors.text}
+            />
+          </TouchableOpacity>
+              </View>
+          )
+        }
 
        
       </View>
