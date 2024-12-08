@@ -47,15 +47,15 @@ npx expo start
 ## You can run it on an Android/iOS emulator or use Expo Go on a physical device.
 
 ### Contributing
--** Feel free to fork the repository, submit issues, and open pull requests. Contributions are welcome to help improve the app!
+Feel free to fork the repository, submit issues, and open pull requests. Contributions are welcome to help improve the app!
 
 ### License
--** This project is licensed under the MIT License.
+This project is licensed under the MIT License.
 
 ### Learn More
--*** Expo Documentation
--*** React Native Documentation
--*** Redux Documentation
+Expo Documentation
+React Native Documentation
+Redux Documentation
 
 
 
