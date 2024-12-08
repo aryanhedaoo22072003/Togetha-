@@ -70,7 +70,7 @@ const Home = () => {
         //call the api here
 
         if(!hasMore) return null;
-        limit=limit + 4;
+        limit=limit + 10;
 
         console.log('fetching post:',limit);
       let res=await fetchPosts(limit);
