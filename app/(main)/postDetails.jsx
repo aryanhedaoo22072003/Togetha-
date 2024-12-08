@@ -13,6 +13,7 @@ import Icon from '../../assets/icons';
 import CommentItem from '../../components/CommentItem';
 import { supabase } from '../../lib/supabase';
 import { getUserData } from '../../services/userService';
+import { createNotification } from '../../services/notificationService';
 
 
 const PostDetails = () => {
@@ -84,7 +85,16 @@ const PostDetails = () => {
         let res=await createComment(data);
         setLoading(false);
         if(res.success){
-            //send notification later
+            if(user.id!=post.userId){
+                //send notification
+                let notify={
+                    senderId:user.id,
+                    receiverId:post.userId,
+                    title:'commented on your posts',
+                    data:JSON.stringify({postId:post.id,commentId:res?.data?.id})
+                }
+                createNotification(notify);
+            }
             inputRef?.current?.clear();
             commentRef.current="";
         }else{
