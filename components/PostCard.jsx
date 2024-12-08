@@ -43,9 +43,17 @@ const PostCard = ({ item, currentUser, router, hasShadow = true ,showMoreIcon=tr
 
   const [loading,setLoading]=useState(false);
 
-  useEffect(()=>{
-    setLikes(item?.postLikes);
-  },[])
+
+
+  // useEffect(()=>{
+  //   setLikes(item?.postLikes);
+  // },[])
+
+  useEffect(() => {
+    if (item?.postLikes) {
+        setLikes(item.postLikes); // Set likes if available
+    }
+}, [item?.postLikes]);
 
   const openPostDetails = () => {
     //later
@@ -97,7 +105,9 @@ const onShare=async()=>{
 
   const createdAt = moment(item?.created_at).format("MMM D");
   
-  const liked=likes.filter(like=> like.userId==currentUser?.id)[0]? true:false;
+  
+  //const liked=likes.filter(like=> like.userId==currentUser?.id)[0]? true:false;
+  const liked = Array.isArray(likes) && likes.filter(like => like.userId == currentUser?.id)[0] ? true : false;
 
   
 

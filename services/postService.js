@@ -73,7 +73,7 @@ export const createPostLike=async(postLike)=>{
        }
        return {success:true,data:data};
     }catch(error){
-        console.log('fetchPosts error :',error);
+        console.log('PostLike error :',error);
         return {success:false,msg:'Could not like the posts'};
 
     }
@@ -82,7 +82,7 @@ export const createPostLike=async(postLike)=>{
 export const removePostLike=async(postId,userId)=>{
     try{
        
-        const {data,error}=await supabase
+        const {error}=await supabase
         .from('postLikes')
         .delete()
         .eq('userId',userId)
@@ -144,6 +144,28 @@ export const createComment=async(comment)=>{
     }catch(error){
         console.log('comment error :',error);
         return {success:false,msg:'Could not create your comment'};
+
+    }
+}
+
+export const removeComment=async(commentId)=>{
+    try{
+       
+        const {error}=await supabase
+        .from('comments')
+        .delete()
+        .eq('id',commentId)
+        
+
+
+       if(error){
+        console.log('removeComment error :',error);
+        return {success:false,msg:'Could not remove the comment'};
+       }
+       return {success:true,data:{commentId}};
+    }catch(error){
+        console.log('fetchPosts error :',error);
+        return {success:false,msg:'Could not remove the comment'};
 
     }
 }

@@ -26,7 +26,7 @@ const Home = () => {
       if(payload.eventType=='INSERT' && payload?.new?.id){
         let newPost={...payload.new};
         let res=await getUserData(newPost.userId);
-        newPost.username=res.success? res.data:{};
+        newPost.user=res.success? res.data:{};
         setPosts(prevPosts=>[newPost, ...prevPosts]);
       }
     }

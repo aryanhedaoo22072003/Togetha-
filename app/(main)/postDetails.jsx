@@ -1,7 +1,7 @@
 import {Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import { useLocalSearchParams, useRouter } from 'expo-router'
-import { createComment, fetchPostDetails } from '../../services/postService';
+import { createComment, fetchPostDetails, removeComment } from '../../services/postService';
 import { hp, wp } from '../../helpers/common';
 import { theme } from '../../constants/theme';
 import PostCard from '../../components/PostCard';
@@ -55,6 +55,19 @@ const PostDetails = () => {
         }
     }
 
+    const onDeleteComment=async(comment)=>{
+        console.log('deleting comment:',comment);
+        let res=await removeComment(comment?.id);
+        if(res.success){
+            setPost(prevPost=>{
+                let updatedPost={...prevPost};
+                updatedPost.comments=updatedPost.comments.filter(c=>c.id != comment.id);
+                return updatedPost;
+        })
+    }else{
+        Alert.alert('Comment',res.msg);
+    }
+
     if(startLoading){
         return(
             <View style={styles.center}>
@@ -68,6 +81,7 @@ const PostDetails = () => {
             <Text style={styles.notFound}>Post not found !</Text>
            </View> 
         )
+    }
     }
   return (
     <View style={styles.container}>
@@ -110,6 +124,7 @@ const PostDetails = () => {
                     <CommentItem
                         key={comment?.id?.toString()}
                         item={comment}
+                        onDelete={onDeleteComment}
                         canDelete={user.id == comment.userId || user.id == post.userId}
                     />
                 )
