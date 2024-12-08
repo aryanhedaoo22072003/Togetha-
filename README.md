@@ -1,50 +1,63 @@
-# Welcome to your Expo app 👋
+Togetha
+Togetha is a community-driven mobile app built with React Native and Expo, offering a platform for users to connect, share content, and engage in social interactions. The app features easy-to-use interfaces and integrates various modules to enhance user experience.
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Key Features
+Community Engagement: Users can create, join, and interact in different communities by posting content, commenting, and liking posts.
+User Profiles: Users can manage their profiles, including personal information, photos, and posts.
+Content Sharing: Users can upload media such as images, text posts, and videos to their communities.
+Push Notifications: Real-time notifications keep users updated on new posts and interactions.
+Technologies Used
+React Native: A framework for building cross-platform apps using JavaScript and React.
+Expo: A platform that simplifies the development and building process for React Native apps.
+Redux: A state management tool for handling app-level data and state flow.
+React Navigation: For smooth and intuitive navigation between app screens.
+Axios: A promise-based HTTP client for making requests to the server API.
+React Native Paper: A UI library that provides material design components.
+React Native Modules Integrated
+React Navigation: Provides a navigation structure for the app, supporting stack, tab, and drawer navigation.
+Axios: Handles API requests for data fetching, allowing users to load posts, profiles, and community details.
+React Native Paper: Used for UI components like buttons, text inputs, and cards, implementing Material Design.
+React Native Push Notification: For sending push notifications to users about new content or interactions.
+React Native Image Picker: Enables users to upload images directly from their device's gallery or camera.
+Getting Started
+Prerequisites
+Ensure the following tools are installed:
 
-## Get started
+Node.js (version 14 or above)
+npm or yarn
+Expo CLI: Install with npm install -g expo-cli.
+Install Dependencies
+Clone the repository and install the necessary dependencies:
 
-1. Install dependencies
+bash
+Copy code
+git clone https://github.com/aryanhedaoo22072003/Togetha-.git
+cd Togetha-
+npm install
+Running the App
+Start the development server:
 
-   ```bash
-   npm install
-   ```
+bash
+Copy code
+npx expo start
+You can then open the app in an iOS or Android emulator, or use Expo Go on your physical device to scan the QR code.
 
-2. Start the app
+Running the App on Physical Device (Using Expo Go)
+Install Expo Go from the App Store or Google Play Store.
+Open the Expo Go app and scan the QR code displayed in the terminal or browser after running npx expo start.
+Project Structure
+/assets: Contains images, icons, and other static assets.
+/components: Reusable components for UI elements like buttons, cards, and forms.
+/screens: Different views/screens of the app, such as Home, Profile, Community, etc.
+/redux: Contains Redux actions, reducers, and store setup.
+/utils: Utility functions and API calls for the app.
+Contributing
+Feel free to fork the repository, submit issues, and open pull requests. Contributions are highly welcome to improve the app!
 
-   ```bash
-    npx expo start
-   ```
+License
+This project is licensed under the MIT License.
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Learn More
+Expo Documentation
+React Native Documentation
+Redux Documentation
