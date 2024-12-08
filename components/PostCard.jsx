@@ -101,6 +101,22 @@ const onShare=async()=>{
   }
   Share.share(content);
 }
+
+const handlePostDelete=()=>{
+  Alert.alert("Confirm", "Are you sure you want to this? ", [
+    {
+      text: "Cancel",
+      onPress: () => console.log("modal cancelled"),
+      style: "cancel",
+    },
+    {
+      text: "Delete",
+      onPress: () => onDelete(item),
+      style: "destructive",
+    },
+  ]);
+
+}
   // console.log('post item comments:',item?.comments);
 
   const createdAt = moment(item?.created_at).format("MMM D");
@@ -143,12 +159,18 @@ const onShare=async()=>{
         {
           showDelete && currentUser.id== item?.userId && (
             <View style={styles.actions}>
-              <TouchableOpacity onPress={onEdit}>
+              <TouchableOpacity onPress={()=>onEdit(item)}>
             <Icon
               name="edit"
               size={hp(2.5)}
-              strokeWidth={3}
               color={theme.colors.text}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handlePostDelete}>
+            <Icon
+              name="delete"
+              size={hp(2.5)}
+              color={theme.colors.rose}
             />
           </TouchableOpacity>
               </View>

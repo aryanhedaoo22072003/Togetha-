@@ -108,7 +108,8 @@ const PostDetails = () => {
 
 
     const onDeletePost=async(item)=>{
-        console.log('delete Post:',item);
+        //delete post here
+        
     }
 
     const onEditPost=async(item)=>{
