@@ -33,26 +33,29 @@ Clone the repository and install dependencies:
 git clone https://github.com/aryanhedaoo22072003/Togetha-.git
 cd Togetha-
 npm install
-
+```
 
 Running the App
 Start the app with:
 
-bash
-Copy code
+```bash
+
 npx expo start
-You can run it on an Android/iOS emulator or use Expo Go on a physical device.
 
-Contributing
-Feel free to fork the repository, submit issues, and open pull requests. Contributions are welcome to help improve the app!
+```
 
-License
-This project is licensed under the MIT License.
+###You can run it on an Android/iOS emulator or use Expo Go on a physical device.
 
-Learn More
-Expo Documentation
-React Native Documentation
-Redux Documentation
-vbnet
-Copy code
+###Contributing
+-**Feel free to fork the repository, submit issues, and open pull requests. Contributions are welcome to help improve the app!
+
+###License
+-**This project is licensed under the MIT License.
+
+###Learn More
+-***Expo Documentation
+-***React Native Documentation
+-***Redux Documentation
+-***vbnet
+
 
