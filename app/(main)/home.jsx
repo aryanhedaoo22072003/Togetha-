@@ -37,7 +37,19 @@ const Home = () => {
           let updatedPosts=prevPosts.filter(post=>post.id!=payload.old.id);
           return updatedPosts;
       })
-      }
+    }
+    if(payload.eventType=='UPDATE' && payload?.new?.id){
+      setPosts(prevPosts=>{
+        let updatedPosts=prevPosts.map(post=>{
+          if(post.id==payload.new.id){
+            post.body=payload.new.body;
+            post.file=payload.new.file;
+          }
+          return post;
+        });
+        return updatedPosts;
+      })
+    }
 
     }
     
@@ -61,7 +73,7 @@ const Home = () => {
         limit=limit + 4;
 
         console.log('fetching post:',limit);
-      let res=await fetchPosts();
+      let res=await fetchPosts(limit);
       if(res.success){
         if(posts.length== res.data.length) setHasMore(false);
         setPosts(res.data);

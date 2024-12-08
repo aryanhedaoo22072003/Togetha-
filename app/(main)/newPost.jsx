@@ -1,5 +1,5 @@
 import { Alert, Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ScreenWrapper from '../../components/ScreenWrapper'
 import Header from '../../components/Header'
 import { hp, wp } from '../../helpers/common'
@@ -9,7 +9,7 @@ import Avatar from '../../components/Avatar'
 import { useAuth } from '../../contexts/AuthContext'
 import { ScrollView } from 'react-native'
 import RichTextEditor from '../../components/RichTextEditor'
-import { useRouter } from 'expo-router'
+import { useLocalSearchParams, useRouter } from 'expo-router'
 import Icon from '../../assets/icons'
 import Button from '../../components/Button'
 import * as ImagePicker from 'expo-image-picker';
@@ -17,13 +17,28 @@ import { getSupabaseFileUrl } from '../../services/imageService'
 import { Video } from 'expo-av';
 import { createOrUpdatePost } from '../../services/postService'
 const NewPost = () => {
+  const post=useLocalSearchParams();
+  console.log('post :',post);
   const {user}=useAuth();
-
   const bodyRef=useRef("");
   const editorRef=useRef(null);
   const router=useRouter();
   const [loading,setloading]=useState(false);
   const [file,setFile]=useState(file);
+
+  useEffect(()=>{
+   if(post && post.id){
+     bodyRef.current=post.body;
+     setFile(post.file || null);
+     setTimeout(() => {
+      editorRef?.current?.setContentHTML(post.body);
+     }, 300);
+     
+   }
+  },[])
+
+
+
 
   const onPick=async(isImage)=>{
     let mediaConfig={
@@ -50,7 +65,7 @@ const NewPost = () => {
 
     return false;
   } 
-  const getFileType=file =>{
+  const getFileType= file =>{
     if(!file) return null;
     if(isLocalFile(file)){
       return file.type;
@@ -82,6 +97,10 @@ const NewPost = () => {
       userId:user?.id,
 
     }
+
+    if(post && post.id) data.id=post.id;
+
+    
     //create post
     setloading(true);
     let res=await createOrUpdatePost(data);
@@ -95,7 +114,7 @@ const NewPost = () => {
       Alert.alert('Post',res.msg);
     }
   }
-  console.log('file uri :',getFileUri(file));
+  //console.log('file uri :',getFileUri(file));
   return (
     <ScreenWrapper bg="white">
       <View style={styles.container}>
@@ -166,7 +185,7 @@ const NewPost = () => {
        </ScrollView>
        <Button 
             buttonStyle={{height:hp(6.2)}}
-            title='Post'
+            title={post && post.id? "Update" : "Post"}
             loading={loading}
             hasShadow={false}
             onPress={onSubmit}
