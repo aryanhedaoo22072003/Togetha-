@@ -1,5 +1,7 @@
 # Togetha!
 
+https://www.loom.com/share/7918fc83a6eb4642a91a711aac8fece3?sid=31b59297-2d0b-4292-9149-71cc1dc9c569
+
 <img width="1280" alt="Screenshot 2024-12-09 at 1 37 46 AM" src="https://github.com/user-attachments/assets/3caa2e7d-e5e2-428b-afd8-aca2a90b0a40">
 
 
